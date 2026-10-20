@@ -1,0 +1,192 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ivory: var(--ivory);
+  --color-cream: var(--cream);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-bronze: var(--bronze);
+  --color-champagne: var(--champagne);
+  --color-sapphire: var(--sapphire);
+  --color-navy: var(--navy);
+  --color-silver: var(--silver);
+  --color-charcoal: var(--charcoal);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--gold);
+  --color-primary-foreground: var(--charcoal);
+  --color-card: var(--card);
+  --color-card-foreground: var(--foreground);
+  --color-accent: var(--gold);
+  --color-accent-foreground: var(--charcoal);
+  --color-ring: var(--gold);
+  --color-input: var(--border);
+  --color-popover: var(--card);
+  --color-popover-foreground: var(--foreground);
+  --color-secondary: var(--cream);
+  --color-secondary-foreground: var(--charcoal);
+  --color-destructive: oklch(0.6 0.22 25);
+  --color-destructive-foreground: oklch(1 0 0);
+  --color-sidebar: var(--card);
+  --color-sidebar-foreground: var(--foreground);
+  --color-sidebar-primary: var(--gold);
+  --color-sidebar-primary-foreground: var(--charcoal);
+  --color-sidebar-accent: var(--cream);
+  --color-sidebar-accent-foreground: var(--charcoal);
+  --color-sidebar-border: var(--border);
+  --color-sidebar-ring: var(--gold);
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+}
+
+:root {
+  /* Brand palette — derived from the Ravi Impex logo cocoa (#664633) */
+  --background: #fcf9f5;
+  --foreground: #2a1c15;
+  --ivory: #fcf9f5;
+  --cream: #f5ede5;
+  --champagne: #eadbcd;
+  --gold: #664633; /* logo cocoa — primary brand accent */
+  --bronze: #9a7259; /* mid tone for gradients */
+  --gold-soft: #c9ab95; /* light tan — accents on dark grounds */
+  --sapphire: oklch(0.52 0.15 255);
+  --navy: oklch(0.26 0.07 258);
+  --silver: oklch(0.86 0.008 250);
+  --charcoal: #2a1c15; /* espresso — text and dark sections */
+  --muted: #f3ece5;
+  --muted-foreground: #7a6457;
+  --border: #e7dbd0;
+  --card: oklch(1 0 0);
+  --radius: 1rem;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    font-weight: 500;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--gold) 40%, transparent);
+    color: var(--charcoal);
+  }
+}
+
+@utility text-gradient-gold {
+  background: linear-gradient(135deg, #4e3324, #a57d63, #4e3324);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-size: 200% 200%;
+  animation: shimmer-text 6s ease-in-out infinite;
+}
+
+@utility text-gradient-sapphire {
+  background: linear-gradient(120deg, var(--navy), var(--sapphire) 45%, var(--navy));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-size: 200% 200%;
+  animation: shimmer-text 6s ease-in-out infinite;
+}
+
+@utility hero-gradient {
+  background:
+    radial-gradient(120% 90% at 12% 8%, oklch(1 0 0) 0%, transparent 55%),
+    radial-gradient(90% 80% at 88% 78%, color-mix(in oklab, var(--navy) 55%, transparent) 0%, transparent 62%),
+    linear-gradient(125deg, var(--ivory) 0%, oklch(0.97 0.012 250) 42%, color-mix(in oklab, var(--sapphire) 22%, var(--ivory)) 72%, color-mix(in oklab, var(--navy) 32%, var(--ivory)) 100%);
+}
+
+
+@utility glass-card {
+  background: color-mix(in oklab, white 65%, transparent);
+  backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid color-mix(in oklab, var(--gold) 20%, transparent);
+  box-shadow:
+    0 1px 0 0 color-mix(in oklab, white 90%, transparent) inset,
+    0 30px 60px -30px color-mix(in oklab, var(--charcoal) 20%, transparent);
+}
+
+@utility gold-border {
+  position: relative;
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(135deg, #664633, #e3d0c1, #664633) border-box;
+  border: 1px solid transparent;
+}
+
+@utility hero-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+@utility grain-bg {
+  background-image:
+    radial-gradient(ellipse at top left, color-mix(in oklab, var(--gold-soft) 22%, transparent), transparent 55%),
+    radial-gradient(ellipse at bottom right, color-mix(in oklab, var(--champagne) 30%, transparent), transparent 60%);
+}
+
+@utility divider-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--gold) 60%, transparent), transparent);
+}
+
+@keyframes shimmer-text {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(3deg); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-float { animation: float-slow 8s ease-in-out infinite; }
+.animate-marquee { animation: marquee 40s linear infinite; }
+
+@utility text-gradient-light {
+  background: linear-gradient(135deg, #e9d6c6, #c9ab95, #f5ede5);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow { animation: spin-slow 28s linear infinite; }
