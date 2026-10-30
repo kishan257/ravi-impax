@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { animate, motion, useInView, useScroll, useTransform } from "framer-motion";
-import { useEffect, useId, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useId, useRef, useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -18,6 +18,8 @@ import {
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { Reveal, SectionEyebrow } from "@/components/site/Reveal";
+import { Counter } from "@/components/site/Counter";
+import { FacetPattern } from "@/components/site/FacetPattern";
 import { COUNTRIES, MAP_W, MAP_H, project } from "@/components/site/world-geo";
 import { logoMark } from "@/assets/brand";
 import diamondsLoose from "@/assets/diamonds-loose.jpg";
@@ -245,32 +247,6 @@ const footprint = [
   { value: 100, suffix: "+", label: "Clients", sub: "Served worldwide" },
 ];
 
-function Counter({ to, suffix }: { to: number; suffix: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.5 });
-  const [val, setVal] = useState(0);
-  useEffect(() => {
-    if (!inView) return;
-    const controls = animate(0, to, {
-      duration: 1.8,
-      ease: EASE,
-      onUpdate: (v) => setVal(Math.round(v)),
-      onComplete: () => setVal(to),
-    });
-    // Always land on the final figure, even if the animation is interrupted.
-    return () => {
-      controls.stop();
-      setVal(to);
-    };
-  }, [inView, to]);
-  return (
-    <span ref={ref} className="inline-block">
-      {val.toLocaleString("en-US")}
-      {suffix}
-    </span>
-  );
-}
-
 function StatsBand() {
   return (
     <section className="relative overflow-hidden bg-charcoal text-ivory">
@@ -292,31 +268,6 @@ function StatsBand() {
         </div>
       </div>
     </section>
-  );
-}
-
-/* Decorative round-brilliant facet line drawing */
-function FacetPattern({ className = "" }: { className?: string }) {
-  const pt = (r: number, a: number) => `${50 + r * Math.cos(a - Math.PI / 2)},${50 + r * Math.sin(a - Math.PI / 2)}`;
-  const step = Math.PI / 4;
-  return (
-    <svg viewBox="0 0 100 100" className={`pointer-events-none ${className}`} aria-hidden>
-      <g fill="none" stroke="currentColor" strokeWidth="0.35">
-        <circle cx="50" cy="50" r="48" />
-        <polygon points={Array.from({ length: 8 }, (_, i) => pt(24, i * step + step / 2)).join(" ")} />
-        {Array.from({ length: 8 }, (_, i) => {
-          const a = i * step;
-          return (
-            <g key={i}>
-              <polyline points={`${pt(24, a - step / 2)} ${pt(36, a)} ${pt(24, a + step / 2)}`} />
-              <polyline points={`${pt(24, a + step / 2)} ${pt(48, a + step / 2)}`} />
-              <polyline points={`${pt(48, a - step / 2)} ${pt(36, a)} ${pt(48, a + step / 2)}`} />
-              <polyline points={`${pt(36, a)} ${pt(48, a)}`} />
-            </g>
-          );
-        })}
-      </g>
-    </svg>
   );
 }
 
