@@ -38,14 +38,14 @@ export function Navbar() {
             : "bg-transparent"
         }`}
       >
-        <div className="mx-auto max-w-7xl px-6 lg:px-10 h-28 md:h-32 flex items-center justify-between">
+        <div className={`mx-auto max-w-7xl px-6 lg:px-10 flex items-center justify-between transition-[height] duration-500 ${scrolled ? "h-16 md:h-[4.5rem]" : "h-20 md:h-24"}`}>
           <Link to="/" className="flex items-center group">
             <img
               src={logoHorizontal}
               alt={BRAND_NAME}
               width={773}
               height={167}
-              className="h-10 sm:h-12 md:h-14 w-auto object-contain group-hover:scale-[1.02] transition-transform"
+              className={`w-auto object-contain group-hover:scale-[1.02] transition-all duration-500 ${scrolled ? "h-8 md:h-10" : "h-9 sm:h-10 md:h-12"}`}
             />
           </Link>
 
@@ -97,7 +97,7 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 md:hidden bg-ivory/95 backdrop-blur-xl pt-28 px-8"
+            className="fixed inset-0 z-40 md:hidden bg-ivory/95 backdrop-blur-xl pt-24 px-8"
           >
             <nav className="flex flex-col gap-2">
               {links.map((l, i) => (
